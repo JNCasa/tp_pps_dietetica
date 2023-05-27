@@ -1,0 +1,26 @@
+header{
+    background-image: url('../../assets/background-images/fondo-dietetica.png');
+    background-repeat: repeat;
+    background-position: top;
+    background-size: cover;
+    background-attachment: scroll;
+    height: 150px;
+    padding: 10px 50px;
+    border-top: 2px solid rgb(206 232 166); 
+    border-bottom: 2px solid rgb(206 232 166); 
+}
+
+.logo{
+    height: 100px;
+    width: 250px;
+    margin-right: 50px;
+}
+
+
+a.nav-link{
+    font-weight: bold;
+}
+
+button.btn{
+    font-weight: bold;
+}
