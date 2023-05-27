@@ -7,6 +7,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css';
 import logo from '../../assets/logos/logo.png';
 import { FaShoppingCart } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
+import Pages from '../../Pages/Pages';
+
 
 function Header() {
   return (
@@ -26,10 +29,11 @@ function Header() {
                 <Nav.Link href="#action1">Tienda</Nav.Link>
                 <Nav.Link href="#action2">Mi cuenta</Nav.Link>
                 <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Quiénes somos</NavDropdown.Item>
+                <NavDropdown.Item><NavLink to="/AboutUs">Quiénes somos</NavLink></NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                    Preguntas frecuentes
+                <NavDropdown.Item ><NavLink to="/FrequentQuestions">
+                Preguntas frecuentes
+                </NavLink>
                 </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="/cart">
