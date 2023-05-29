@@ -7,8 +7,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css';
 import logo from '../../assets/logos/logo.png';
 import { FaShoppingCart } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
-import Pages from '../../Pages/Pages';
+import { Link, NavLink } from 'react-router-dom';
+
 
 
 function Header() {
@@ -16,7 +16,7 @@ function Header() {
     <header>
         <Navbar bg="" expand="lg">
         <Container fluid>
-            <Navbar.Brand href="#">
+            <Navbar.Brand as={Link} to="/Store">
                 <img src={logo} alt='Logo de la empresa' className='logo'/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
@@ -26,17 +26,16 @@ function Header() {
                 style={{ maxHeight: '100px' }}
                 navbarScroll
             >
-                <Nav.Link href="#action1">Tienda</Nav.Link>
-                <Nav.Link href="#action2">Mi cuenta</Nav.Link>
+                <Nav.Link as={Link} to="/Store">Tienda</Nav.Link>
+                <Nav.Link as={Link} to="/MyAccount">Mi cuenta</Nav.Link>
                 <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
-                <NavDropdown.Item><NavLink to="/AboutUs">Quiénes somos</NavLink></NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/AboutUs">Quiénes somos</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item ><NavLink to="/FrequentQuestions">
+                <NavDropdown.Item as={Link} to="/FrequentQuestions">
                 Preguntas frecuentes
-                </NavLink>
                 </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="/cart">
+                <Nav.Link as={Link} to="/Cart">
                     <FaShoppingCart /> Carrito
                 </Nav.Link>
             </Nav>

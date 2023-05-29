@@ -8,6 +8,8 @@ header{
     padding: 10px 50px;
     border-top: 2px solid rgb(206 232 166); 
     border-bottom: 2px solid rgb(206 232 166); 
+    position: sticky;
+    top: 0;
 }
 
 .logo{

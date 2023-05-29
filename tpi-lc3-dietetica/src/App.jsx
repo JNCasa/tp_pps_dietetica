@@ -3,6 +3,7 @@ import './App.css'
 import Header from './Components/Header/Header';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Pages from './Pages/Pages';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
       <Header/>
 
       <Pages/>
+      <Footer/>
       </Router>
       
     </>
