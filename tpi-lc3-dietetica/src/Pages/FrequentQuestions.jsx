@@ -1,9 +1,10 @@
-
+import './AboutUs.css'
 
 const FrequentQuestions = () => {
   return (
-    <div>
-        <h2>Medios de pago</h2>
+    <div className="about-us">
+      <h2>Preguntas frecuentes</h2>
+        <h4>Medios de pago</h4>
         <p>BILLETERA SANTA FE<br></br>
 
         Obtené un beneficio de 30% de reintegro
@@ -25,9 +26,9 @@ const FrequentQuestions = () => {
 
         Si elegís pagar con transferencia bancaria, una vez realizada la compra vas a recibir un Whatsapp con los datos de nuestra cuenta y los pasos a seguir para que podamos registrar el pago y procesar tu pedido. Es 100% segura y rápida.</p>
         <br></br>
-        <h2>Cómo comprar</h2><br></br>
+        <h4>Cómo comprar</h4><br></br>
         <p></p>
-        <h2>Dónde estamos</h2><br></br>
+        <h4>Dónde estamos</h4><br></br>
         <p>Pellegrini XXXX, Rosario, Santa Fe.<br></br>
         Whatsapp +549341xxxxxxx<br></br>
         Lunes a Sábados de 9hs a 13hs y de 16hs a 20 hs.</p>

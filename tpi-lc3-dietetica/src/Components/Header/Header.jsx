@@ -27,7 +27,11 @@ function Header() {
                 navbarScroll
             >
                 <Nav.Link as={Link} to="/Store">Tienda</Nav.Link>
-                <Nav.Link as={Link} to="/MyAccount">Mi cuenta</Nav.Link>
+                <NavDropdown title="Mi cuenta" id="navbarScrollingDropdown">
+                <NavDropdown.Item as={Link} to="/LogIn">Iniciar sesión</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to="/CreateAccount">Crear cuenta</NavDropdown.Item>
+                </NavDropdown>
                 <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
                 <NavDropdown.Item as={Link} to="/AboutUs">Quiénes somos</NavDropdown.Item>
                 <NavDropdown.Divider />
