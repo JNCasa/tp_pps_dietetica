@@ -35,6 +35,7 @@ const Footer = () => {
           </Col>
         </Row>
       </Container>
+      <p className='last-p'>Copyright Abasto Diet - 2022. Todos los derechos reservados.</p>
     </footer>
   );
 };
