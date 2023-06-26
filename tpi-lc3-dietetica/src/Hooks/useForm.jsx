@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 export const useForm = (initialForm, validateForm) => {
     const [form , setForm] = useState(initialForm);
     const [errors , setErrors] = useState({});
-    const [success , setSuccess] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isValid, setIsValid] = useState(false);
     
 
     const handleChange = (e) => {
@@ -13,26 +12,20 @@ export const useForm = (initialForm, validateForm) => {
     };
 
     const handleSubmit = (e) => {
-        handleChange(e);
         e.preventDefault();
+        handleChange(e);
         setErrors(validateForm(form));
-        setIsSubmitted(true);
 
-    };
+        if (Object.keys(errors).length === 0) {
+            setIsValid(true);
+          } else {
+            setIsValid(false);
+          }
 
-    useEffect(() => {
-        if(isSubmitted && Object.keys(errors).length === 0){
-            setSuccess(true);
-        }else{
-            setSuccess(false);
-        }
-    }, [errors, isSubmitted]);
-
-    
-     
+    }; 
 
   return {
-    success,
+    isValid,
     form,
     errors, 
     handleChange, 

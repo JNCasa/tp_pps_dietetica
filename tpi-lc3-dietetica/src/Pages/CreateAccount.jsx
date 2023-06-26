@@ -1,10 +1,19 @@
 import './Form.css';
-import { useForm } from '../Hooks/useForm';
+import { useState } from 'react';
+import firebaseApp from '../Firebase/firebase.config';
+import { getAuth, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getFirestore, doc, setDoc } from 'firebase/firestore'
+import { useNavigate } from "react-router-dom";
+import { useThemeContext } from '../Context/ThemeContext';
 
+
+const auth = getAuth(firebaseApp);
 
 const initialForm = { name: "", lastName: "", phone:"", email: "", password: "", confirmPassword: ""}
 
 const CreateAccount = () => {
+
+  const navigate = useNavigate();
 
   const validationsForm = (form) => {
     let errors = {};
@@ -43,16 +52,74 @@ const CreateAccount = () => {
     return errors;
   }
 
-  const{success, form, errors, handleChange, handleSubmit} = useForm(initialForm, validationsForm);
+  const [form , setForm] = useState(initialForm);
+  const [errors , setErrors] = useState({});
+  const [success , setSuccess] = useState(false);
+  const [err , setErr] = useState("");
   
+  async function registerUser( data ){
+    try {
+      const infoUser = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const firestore = getFirestore(firebaseApp);
+    
+      const docuRef = doc(firestore, `users/${infoUser.user.uid}`);
+      setDoc(docuRef, {
+        name: data.name,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        password: data.password,
+        rol: data.rol
+      })
+      // signOut( auth );
+      setSuccess(true);
+      setErr("");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }catch (err){
+      if(err.code === "auth/email-already-in-use"){
+        setErr("El email ingresado ya está registrado. Por favor ingresa uno nuevo.")
+      }
+
+    }
+   
+  }
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setForm({...form, [name]:value});
+};
+
+  function submitHandler(e){
+    e.preventDefault();
+    handleChange(e);   
+    const errors = validationsForm(form);
+    setErrors(errors)
+
+    const data = {
+      name: form.name,
+      lastName: form.lastName,
+      email: form.email,
+      phone: form.phone,
+      password: form.password,
+      rol: 'user'
+    }
+    if(Object.keys(errors).length === 0) {   
+      registerUser( data );
+      
+    }
+  }
+  
+  const {theme} = useThemeContext();
   
   return (
-    <div className="form-container">
+    <div className="form-container" style={{ backgroundColor: theme.backgroundContainer, color: theme.textColor }}>
       <h2>Crear cuenta</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitHandler}>
             <div className= "form-elements">
             <label id="name">Nombre</label>
-            <input type= "text" name= "name" value={form.name} onChange={handleChange} ></input>
+            <input type= "text" name= "name" value={form.name} onChange={handleChange} required></input>
             {errors.name && <p className="error-message">{errors.name}</p>}
             <label id="lastName">Apellido</label>
             <input type= "text" name= "lastName" value={form.lastName} onChange={handleChange} required></input>
@@ -60,8 +127,8 @@ const CreateAccount = () => {
             <label id="email">Email</label>
             <input type= "text" name= "email" value={form.email} onChange={handleChange}  required></input>
             {errors.email && <p className="error-message">{errors.email}</p>}
-            <label id="phone">Teléfono (opcional)</label>
-            <input type= "number" name= "phone" value={form.phone} onChange={handleChange}></input>
+            <label id="phone">Teléfono</label>
+            <input type= "number" name= "phone" value={form.phone} onChange={handleChange} required></input>
             {errors.phone && <p className="error-message">{errors.phone}</p>}
             <label id="password">Contraseña</label>
             <input type= "password" name= "password" value={form.password} onChange={handleChange}  required/>
@@ -72,10 +139,12 @@ const CreateAccount = () => {
             </div>
             <button type="submit">Crear cuenta</button>
             {success && <p className='success-message'>Usuario creado con éxito</p>}
+            {err && <p className='error-message'>{err}</p>}
             <p>¿Ya tenes una cuenta? <a href='/LogIn' className='link-form'>Iniciar sesión</a></p>
         </form>
     </div>
   )
+  
 }
 
 export default CreateAccount

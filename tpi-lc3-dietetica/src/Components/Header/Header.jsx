@@ -7,11 +7,31 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css';
 import logo from '../../assets/logos/logo.png';
 import { FaShoppingCart } from 'react-icons/fa';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
+import firebaseApp from '../../Firebase/firebase.config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon , faSun } from '@fortawesome/free-solid-svg-icons';
+import { useThemeContext } from '../../Context/ThemeContext';
+import { useContext} from 'react';
+import UserContext from '../../Context/UserContext';
+
+
+const auth = getAuth(firebaseApp)
 
 
 
 function Header() {
+
+    
+    const {toggleTheme, theme} = useThemeContext();
+
+    const { user } = useContext(UserContext);
+
+    const handleEndSession = () => {
+        signOut(auth);
+      };
+
   return (
     <header>
         <Navbar bg="" expand="lg">
@@ -28,9 +48,20 @@ function Header() {
             >
                 <Nav.Link as={Link} to="/Store">Tienda</Nav.Link>
                 <NavDropdown title="Mi cuenta" id="navbarScrollingDropdown">
-                <NavDropdown.Item as={Link} to="/LogIn">Iniciar sesión</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/CreateAccount">Crear cuenta</NavDropdown.Item>
+                {
+                    user === null ? (
+                        <>
+                            <NavDropdown.Item as={Link} to="/LogIn">Iniciar sesión</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item as={Link} to="/CreateAccount">Crear cuenta</NavDropdown.Item>
+                        </>
+                    ) : (
+                        <>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item as={Link} onClick={handleEndSession}  >Cerrar sesión</NavDropdown.Item>
+                        </>
+                    )
+                }
                 </NavDropdown>
                 <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
                 <NavDropdown.Item as={Link} to="/AboutUs">Quiénes somos</NavDropdown.Item>
@@ -52,6 +83,7 @@ function Header() {
                 />
                 <Button variant="outline-success">Buscar</Button>
             </Form>
+            <Button onClick={toggleTheme} className='icon-moon-sun' style={{ backgroundColor: theme.backgroundFooter}}>  <FontAwesomeIcon icon={theme.icon === 'faSun' ? faSun : faMoon} /> </Button>
             </Navbar.Collapse>
         </Container>
         </Navbar>

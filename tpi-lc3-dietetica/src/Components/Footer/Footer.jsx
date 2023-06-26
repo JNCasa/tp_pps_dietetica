@@ -3,10 +3,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
+import { useThemeContext } from '../../Context/ThemeContext';
 
 const Footer = () => {
+  const {theme} = useThemeContext();
   return (
-    <footer className="footer">
+    <footer className="footer" style={{ backgroundColor: theme.backgroundFooter, color: theme.textColor }} >
       <Container>
         <Row>
           <Col>
@@ -14,10 +16,10 @@ const Footer = () => {
             <div>
                 <ul>
                     <li>
-                        <Link to="/AboutUs">Quiénes somos</Link>
+                        <Link to="/AboutUs" style={{ color: theme.textColor }}>Quiénes somos</Link>
                     </li>
                     <li>
-                        <Link to="/FrequentQuestions">Preguntas Frecuentes</Link>
+                        <Link to="/FrequentQuestions" style={{ color: theme.textColor }}>Preguntas Frecuentes</Link>
                     </li>
                 </ul>
             </div>

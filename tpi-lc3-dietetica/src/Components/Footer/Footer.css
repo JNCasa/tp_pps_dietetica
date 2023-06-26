@@ -1,5 +1,5 @@
 .footer{
-    background-color: #d9d7b9;
+    
     padding: 50px;
     font-family: "Muli",sans-serif;
     border-top: 2px solid rgb(206 232 166); 
@@ -19,7 +19,7 @@ ul {
 }
 
 ul li a{
-    color: #212529;
+    
     text-decoration: none;
 
 }

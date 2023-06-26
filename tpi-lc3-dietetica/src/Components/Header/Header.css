@@ -26,3 +26,14 @@ a.nav-link{
 button.btn{
     font-weight: bold;
 }
+
+button.icon-moon-sun{
+    border-color: #198754;
+    margin-left: 10px;
+    
+}
+
+button.icon-moon-sun:hover{
+    border-color: #198754 !important;
+    
+}
