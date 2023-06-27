@@ -1,0 +1,35 @@
+
+
+.card {
+    padding: 2em;
+    font-family: "Varela Round", sans-serif;
+    color: #037503;
+    
+  }
+  
+  .read-the-docs {
+    color: #888;
+  }
+  /*zoom en changuito*/
+  .card-img-top:hover {
+    transform: scale(1.5);
+    transition: 1.5s  ease 1ms;
+    
+  }
+  #Section_panel{
+    
+    height: 100px;
+    background-color: #141313d3;
+    /* antes #e4bd12a1*/
+   position: sticky;
+   top: 0px;
+   align-content: center;
+   z-index: 3000;
+  }
+  #Section_buy, #Section_shop{
+    padding-top: 100px;
+  }
+  /****************/
+  .store{
+    z-index: 3000000;
+  }
