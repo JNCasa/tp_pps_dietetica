@@ -81,9 +81,7 @@ const CreateAccount = () => {
       if(err.code === "auth/email-already-in-use"){
         setErr("El email ingresado ya está registrado. Por favor ingresa uno nuevo.")
       }
-
     }
-   
   }
 
   const handleChange = (e) => {

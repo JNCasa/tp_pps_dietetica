@@ -19,7 +19,8 @@ import UserContext from '../../Context/UserContext';
 
 const auth = getAuth(firebaseApp)
 
-
+const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })};
 
 function Header() {
 
@@ -46,14 +47,14 @@ function Header() {
                 style={{ maxHeight: '100px' }}
                 navbarScroll
             >
-                <Nav.Link as={Link} to="/Store">Tienda</Nav.Link>
+                <Nav.Link as={Link} to="/Store" onClick={handleClick}>Tienda</Nav.Link>
                 <NavDropdown title="Mi cuenta" id="navbarScrollingDropdown">
                 {
                     user === null ? (
                         <>
-                            <NavDropdown.Item as={Link} to="/LogIn">Iniciar sesión</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/LogIn" onClick={handleClick}>Iniciar sesión</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} to="/CreateAccount">Crear cuenta</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/CreateAccount" onClick={handleClick}>Crear cuenta</NavDropdown.Item>
                         </>
                     ) : (
                         <>
@@ -64,9 +65,9 @@ function Header() {
                 }
                 </NavDropdown>
                 <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
-                <NavDropdown.Item as={Link} to="/AboutUs">Quiénes somos</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/AboutUs" onClick={handleClick}>Quiénes somos</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/FrequentQuestions">
+                <NavDropdown.Item as={Link} to="/FrequentQuestions" onClick={handleClick}>
                 Preguntas frecuentes
                 </NavDropdown.Item>
                 </NavDropdown>

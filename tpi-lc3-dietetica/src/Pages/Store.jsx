@@ -33,9 +33,8 @@ const Store = () => {
       {user === null ? (
         <h1>Tienda</h1>
       ) : (
-        <h1>Bienvenido a la tienda, {user.name}</h1>
-/********************************************************** */
-)}
+        <h3>Bienvenido a la tienda, {user.name}</h3>
+        )}
 
   
      <div className="container">
@@ -70,7 +69,7 @@ const Store = () => {
         <hr/>
         <p>Total: {total} AR$</p>
          <hr/>
-         <button type="button" class="btn btn-warning">Comprar</button>
+         <button type="button" className="btn btn-warning">Comprar</button>
          </div>
      </div>
 

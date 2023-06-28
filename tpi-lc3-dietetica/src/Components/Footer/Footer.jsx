@@ -5,7 +5,11 @@ import { faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 import { useThemeContext } from '../../Context/ThemeContext';
 
+const handleClick = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })};
+
 const Footer = () => {
+  
   const {theme} = useThemeContext();
   return (
     <footer className="footer" style={{ backgroundColor: theme.backgroundFooter, color: theme.textColor }} >
@@ -16,10 +20,10 @@ const Footer = () => {
             <div>
                 <ul>
                     <li>
-                        <Link to="/AboutUs" style={{ color: theme.textColor }}>Quiénes somos</Link>
+                        <Link to="/AboutUs" style={{ color: theme.textColor }} onClick={handleClick}>Quiénes somos</Link>
                     </li>
                     <li>
-                        <Link to="/FrequentQuestions" style={{ color: theme.textColor }}>Preguntas Frecuentes</Link>
+                        <Link to="/FrequentQuestions" style={{ color: theme.textColor }} onClick={handleClick}>Preguntas Frecuentes</Link>
                     </li>
                 </ul>
             </div>
