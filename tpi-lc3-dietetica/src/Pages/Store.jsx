@@ -1,21 +1,21 @@
 
 import { useContext } from "react";
 import UserContext from "../Context/UserContext";
-import "./Store.css";
+import "./PagesCSS/Store.css";
 import React, { useState, useEffect } from 'react';
-import products from './json.jsx';
+import { getProducts } from '../Db/json.jsx';
 import Card from './Card.jsx';
-import backgroundImage from './images/card.png';
+import backgroundImage from '../assets/images/card.png';
 
 
 const Store = () => {
   const { user } = useContext(UserContext);
 
- const [productList, setProductList] = useState([]);
-   const [quantities, setQuantities] = useState({});
+  const [productList, setProductList] = useState([]);
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
-     setProductList(products);
+     setProductList(getProducts());
    }, []);
 
    const handleQuantityChange = (id, quantity) => {
@@ -30,11 +30,9 @@ const Store = () => {
 
   return (
     <div>
-      {user === null ? (
-        <h1>Tienda</h1>
-      ) : (
+      {user !== null ? (
         <h3>Bienvenido a la tienda, {user.name}</h3>
-        )}
+      ) : null}
 
   
      <div className="container">

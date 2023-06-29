@@ -1,4 +1,4 @@
-import './Form.css';
+import './PagesCSS/Form.css';
 import { useState } from 'react';
 import firebaseApp from '../Firebase/firebase.config';
 import { getAuth, createUserWithEmailAndPassword, signOut } from 'firebase/auth';

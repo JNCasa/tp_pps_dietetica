@@ -1,4 +1,4 @@
-import './Form.css';
+import './PagesCSS/Form.css';
 import { useForm } from '../Hooks/useForm';
 import firebaseApp from '../Firebase/firebase.config';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';

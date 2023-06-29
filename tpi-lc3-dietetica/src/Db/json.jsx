@@ -1,4 +1,5 @@
-const products = [
+
+let products = [
   {
     id: 1,
     title: 'Producto 1',
@@ -79,5 +80,21 @@ const products = [
      price : 100,
      weight : "800 cc"
    }
-];
+]
+
+export const getProducts =() => {
+  const productos = JSON.parse(localStorage.getItem('products'));
+  if(!productos){
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+  return productos;
+}
+
+
+
+
+export const updateProducts = ( productList ) => {
+  localStorage.setItem('products', JSON.stringify(productList));
+}
+
 export default products
