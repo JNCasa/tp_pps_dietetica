@@ -7,7 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css';
 import logo from '../../assets/logos/logo.png';
 import { FaShoppingCart } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
 import firebaseApp from '../../Firebase/firebase.config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,7 +19,8 @@ import UserContext from '../../Context/UserContext';
 
 const auth = getAuth(firebaseApp)
 
-
+const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })};
 
 function Header() {
 
@@ -28,8 +29,11 @@ function Header() {
 
     const { user } = useContext(UserContext);
 
+    const navigate = useNavigate();
+
     const handleEndSession = () => {
         signOut(auth);
+        navigate="/";
       };
 
   return (
@@ -46,33 +50,45 @@ function Header() {
                 style={{ maxHeight: '100px' }}
                 navbarScroll
             >
-                <Nav.Link as={Link} to="/Store">Tienda</Nav.Link>
+                <Nav.Link as={Link} to="/Store" onClick={handleClick}>Tienda</Nav.Link>
                 <NavDropdown title="Mi cuenta" id="navbarScrollingDropdown">
                 {
                     user === null ? (
                         <>
-                            <NavDropdown.Item as={Link} to="/LogIn">Iniciar sesión</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/LogIn" onClick={handleClick}>Iniciar sesión</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} to="/CreateAccount">Crear cuenta</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/CreateAccount" onClick={handleClick}>Crear cuenta</NavDropdown.Item>
                         </>
                     ) : (
                         <>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} onClick={handleEndSession}  >Cerrar sesión</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} onClick={handleEndSession} navigate to="/" >Cerrar sesión</NavDropdown.Item>
                         </>
                     )
                 }
                 </NavDropdown>
                 <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
-                <NavDropdown.Item as={Link} to="/AboutUs">Quiénes somos</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/AboutUs" onClick={handleClick}>Quiénes somos</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/FrequentQuestions">
+                <NavDropdown.Item as={Link} to="/FrequentQuestions" onClick={handleClick}>
                 Preguntas frecuentes
                 </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link as={Link} to="/Cart">
+                {/* modal*/}
+               
+                <Nav.Link  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     <FaShoppingCart /> Carrito
                 </Nav.Link>
+        
+
+
+                {
+                    user !== null && user.rol === 'owner' && (
+                        <>
+                            <Nav.Link as={Link} to="/ListProducts" onClick={handleClick}>Owner</Nav.Link>
+                        </>
+                    ) 
+                }
             </Nav>
             <Form className="d-flex">
                 <Form.Control

@@ -1,4 +1,4 @@
-import './Form.css';
+import './PagesCSS/Form.css';
 import { useState } from 'react';
 import firebaseApp from '../Firebase/firebase.config';
 import { getAuth, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
@@ -81,9 +81,7 @@ const CreateAccount = () => {
       if(err.code === "auth/email-already-in-use"){
         setErr("El email ingresado ya está registrado. Por favor ingresa uno nuevo.")
       }
-
     }
-   
   }
 
   const handleChange = (e) => {

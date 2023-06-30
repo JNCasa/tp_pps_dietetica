@@ -1,9 +1,10 @@
-import './Form.css';
+import './PagesCSS/Form.css';
 import { useForm } from '../Hooks/useForm';
 import firebaseApp from '../Firebase/firebase.config';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from '../Context/ThemeContext';
+import { useState } from 'react';
 
 const auth = getAuth(firebaseApp);
 
@@ -29,13 +30,25 @@ const LogIn = () => {
   }
 
   const{form, errors, handleChange} = useForm(initialForm, validationsForm);
-   
+  
+  const [err , setErr] = useState();
+
   async function submitHandler(e){
     e.preventDefault()
-    const login = await signInWithEmailAndPassword(auth,form.email, form.password);
-    if(login){
-      navigate("/");
+    try{
+      const login = await signInWithEmailAndPassword(auth,form.email, form.password);
+      if(login){
+        navigate("/");
+      }
+    } catch (err){
+      if(err.code === 'auth/user-not-found'){
+          setErr('Usted no se encuntra registrado. Debe crearse una cuenta.')
+      }
+      if(err.code === 'auth/wrong-password'){
+        setErr('La contraseña ingresada es incorrecta. Vuelve a ingresrla.')
     }
+    }
+    
   }
 
   const {theme} = useThemeContext();
@@ -53,6 +66,7 @@ const LogIn = () => {
             {errors.password && <p className="error-message">{errors.password}</p>}
           </div>
           <button type="submit" >Iniciar sesión</button>
+          {err && <p className='error-message'>{err}</p>}
           <p>¿No tenes cuenta aún? <a href='/CreateAccount' className='link-form'>Crear cuenta</a></p>
         </form>
       </div>

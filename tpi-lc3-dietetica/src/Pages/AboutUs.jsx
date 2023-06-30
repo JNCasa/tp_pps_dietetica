@@ -1,4 +1,4 @@
-import './AboutUs.css'
+import '../Pages/PagesCSS/AboutUs.css'
 import image from '../assets/local/local-diet.png'
 
 const AboutUs = () => {

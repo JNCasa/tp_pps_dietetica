@@ -1,14 +1,14 @@
 import React from "react";
 import Counter from "./Counter";
-//import { useThemeContext } from '../../Context/ThemeContext';
+import { useThemeContext } from '../../Context/ThemeContext';
 const Card = (props) => {
-  //const {theme} = useThemeContext();
+  const {theme} = useThemeContext();
   const handleQuantityChange = (quantity) => {
     props.onQuantityChange(props.id, quantity);
   }
 
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card" style={{ width: "18rem" , backgroundColor: theme.backgroundFooter,  color: theme.textColor}}>
       <div style={{ overflow: "hidden" }}>
         <img className='card-img-top' src={props.image} alt={props.title} />
       </div>

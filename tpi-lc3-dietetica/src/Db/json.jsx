@@ -1,9 +1,10 @@
-const products = [
+
+let products = [
   {
     id: 1,
     title: 'Producto 1',
     description: 'Té Ahumado Agos',
-    image: './images/im1.png',
+    image: '../assets/images/im1.png',
     price: 10.00,
     weight: '600 grs.',
   },
@@ -79,5 +80,21 @@ const products = [
      price : 100,
      weight : "800 cc"
    }
-];
+]
+
+export const getProducts =() => {
+  const productos = JSON.parse(localStorage.getItem('products'));
+  if(!productos){
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+  return productos;
+}
+
+
+
+
+export const updateProducts = ( productList ) => {
+  localStorage.setItem('products', JSON.stringify(productList));
+}
+
 export default products
