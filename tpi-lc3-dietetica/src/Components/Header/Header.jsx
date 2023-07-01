@@ -62,7 +62,7 @@ function Header() {
                     ) : (
                         <>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} onClick={handleEndSession} navigate to="/" >Cerrar sesión</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} onClick={handleEndSession} to="/" >Cerrar sesión</NavDropdown.Item>
                         </>
                     )
                 }

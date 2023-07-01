@@ -43,7 +43,7 @@ const Store = () => {
        <h1 className='text-success'>Productos</h1>
   </div>
 
-       <div className="d-flex flex-wrap justify-content-center" style={{ overflowY: "scroll", height: "500px" , backgroundImage:`url(${backgroundImage})`, backgroundSize: "cover", }}>
+       <div className="d-flex flex-wrap justify-content-center" style={{ backgroundImage:`url(${backgroundImage})`, backgroundSize: "cover", }}>
             {productList.map(product => (
               
               <div key={product.id} className="m-2">
@@ -63,16 +63,16 @@ const Store = () => {
 
 
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style={{zIndex:5000}}>
-      <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
+<div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style={{zIndex:5000}}>
+      <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
             <div className="d-flex flex-wrap justify-content-center">
                   <h3 className='text-success'>Carrito</h3>
                 </div>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               {/*Cart boby */}
               <div className="col-12" style={{ overflowY: "scroll", maxHeight: "80vh" }}>
               
@@ -86,10 +86,10 @@ const Store = () => {
                 </div>
             </div>
               {/* */}
-              <div class="modal-footer">
+              <div className="modal-footer">
    
     {total === 0 ? (
-        <p>  <h2>Hora de Comprar!</h2></p>
+        <p>  Hora de Comprar!</p>
     ) : (
         <div id="result">
             <hr/>
