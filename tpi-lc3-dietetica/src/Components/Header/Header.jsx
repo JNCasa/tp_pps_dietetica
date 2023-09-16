@@ -97,12 +97,20 @@ function Header() {
                 className="me-2"
                 aria-label="Search"
                 />
-                <Button variant="outline-success">Buscar</Button>
+                <Button variant="outline-success" className='button-buscar'>Buscar</Button>
             </Form>
             <Button onClick={toggleTheme} className='icon-moon-sun' style={{ backgroundColor: theme.backgroundFooter}}>  <FontAwesomeIcon icon={theme.icon === 'faSun' ? faSun : faMoon} /> </Button>
             </Navbar.Collapse>
         </Container>
         </Navbar>
+        <div className='menu-bar'>
+                <a className='linkBarMenu bebida' href=''>BEBIDAS</a>
+                <a className='linkBarMenu te' href=''>TÉ</a>
+                <a className='linkBarMenu cafe' href=''>CAFÉ</a>
+                <a className='linkBarMenu harina' href=''>HARINAS</a>
+                <a className='linkBarMenu granola' href=''>GRANOLAS</a>
+                <a className='linkBarMenu azucar' href=''>AZÚCAR</a>
+        </div>
     </header>
   );
 }

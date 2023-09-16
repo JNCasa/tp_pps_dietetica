@@ -34,7 +34,7 @@ function App() {
 
   onAuthStateChanged(auth, async (firebaseUser) => {
     if (firebaseUser) {
-      if (!user) {
+      if (!user) { 
         await setUserWithFirebaseAndData(firebaseUser.uid);
       }
     } else {

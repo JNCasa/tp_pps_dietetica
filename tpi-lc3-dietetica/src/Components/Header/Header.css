@@ -4,15 +4,18 @@ header{
     background-position: top;
     background-size: cover;
     background-attachment: scroll;
-    height: 150px;
-    padding: 10px 50px;
-    border-top: 2px solid rgb(206 232 166); 
-    border-bottom: 2px solid rgb(206 232 166); 
+    border-top: 2px solid rgb(206 232 166);  
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
+    padding-bottom: 0;
 }
 
+
+nav.navbar.navbar-expand-lg.nabvar-light{
+    padding: 10px 50px;
+}
 
 .logo{
     height: 100px;
@@ -38,4 +41,32 @@ button.icon-moon-sun{
 button.icon-moon-sun:hover{
     border-color: #198754 !important;
     
+}
+
+button.button-buscar{
+    background-color: #fefeb3;
+}
+
+a.linkBarMenu{
+    color: white;
+    text-decoration: none;
+    flex: 1;
+    padding: 10px 90px;  
+    font-family: monospace;
+    text-align: center
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: space-between; 
+    background-color: #a39f9f;
+    padding: 0.5px; 
+    border-bottom: 2px solid rgb(206 232 166);
+    border-top: 2px solid rgb(206 232 166);
+    width: 100%;
+}
+
+.menu-bar a.linkBarMenu:hover{
+    background-color: rgb(182, 186, 183);
+    color: black;
 }
