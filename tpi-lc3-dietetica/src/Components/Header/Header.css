@@ -1,10 +1,10 @@
-header{
+header {
     background-image: url('../../assets/background-images/fondo-dietetica.png');
     background-repeat: repeat;
     background-position: top;
     background-size: cover;
     background-attachment: scroll;
-    border-top: 2px solid rgb(206 232 166);  
+    border-top: 2px solid rgb(206 232 166);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -13,60 +13,70 @@ header{
 }
 
 
-nav.navbar.navbar-expand-lg.nabvar-light{
+nav.navbar.navbar-expand-lg.nabvar-light {
     padding: 10px 50px;
 }
 
-.logo{
+.logo {
     height: 100px;
     width: 250px;
     margin-right: 50px;
 }
 
 
-a.nav-link{
+a.nav-link {
+    font-weight: bold;
+
+    /* Efecto de sombra */
+    transition: transform .2s;
+    /* Animación suave */
+}
+
+a.nav-link:hover {
+    transform: scale(1.25);
+    text-shadow: 2px 4px 8px #03100187;
+    /* Efecto de zoom al pasar el mouse */
+}
+
+button.btn {
     font-weight: bold;
 }
 
-button.btn{
-    font-weight: bold;
-}
-
-button.icon-moon-sun{
+button.icon-moon-sun {
     border-color: #198754;
     margin-left: 10px;
-    
+
 }
 
-button.icon-moon-sun:hover{
+button.icon-moon-sun:hover {
     border-color: #198754 !important;
-    
+
 }
 
-button.button-buscar{
+button.button-buscar {
     background-color: #fefeb3;
 }
 
-a.linkBarMenu{
+a.linkBarMenu {
     color: white;
     text-decoration: none;
     flex: 1;
-    padding: 10px 90px;  
+    padding: 10px 90px;
     font-family: monospace;
     text-align: center
 }
 
 .menu-bar {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     background-color: #a39f9f;
-    padding: 0.5px; 
+    padding: 0.5px;
     border-bottom: 2px solid rgb(206 232 166);
     border-top: 2px solid rgb(206 232 166);
     width: 100%;
 }
 
-.menu-bar a.linkBarMenu:hover{
+.menu-bar a.linkBarMenu:hover {
     background-color: rgb(182, 186, 183);
     color: black;
 }
