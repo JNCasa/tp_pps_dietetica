@@ -1,0 +1,20 @@
+.whatsapp-button {
+    cursor: pointer;
+    border: none;
+    position: fixed;
+    right: 15px;
+    bottom: 35px;
+    background: #40c351;
+    border-radius: 36px;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+a i .what-icon{
+    color: white;
+    height: 30px;
+    width: 30px;
+}

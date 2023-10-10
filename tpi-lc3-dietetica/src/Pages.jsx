@@ -5,7 +5,9 @@ import LogIn from './Pages/LogIn';
 import Store from './Pages/Store';
 import CreateAccount from './Pages/CreateAccount';
 import ListProducts from './Pages/ListProducts';
+import Cart from './Pages/Cart';
 import { useThemeContext } from './Context/ThemeContext';
+import WhatsappComp from './Components/WhatsappComp/WhatsappComp';
 
 
 const Pages = () => {
@@ -22,7 +24,9 @@ const Pages = () => {
           <Route path="/AboutUs" exact element={<AboutUs/>} />
           <Route path="/FrequentQuestions" exact element={<FrequentQuestions/>} />
           <Route  path="/ListProducts" exact element={<ListProducts/>} /> 
+          <Route  path="/Cart" exact element={<Cart/>} />
         </Routes>
+        <WhatsappComp/>
     </section>
   )
 }

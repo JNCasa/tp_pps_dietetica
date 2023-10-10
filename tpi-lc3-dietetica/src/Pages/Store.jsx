@@ -40,10 +40,10 @@ const Store = () => {
       <div className="row">
         <div className="col-12">
          <div className="d-flex flex-wrap justify-content-center">
-       <h1 className='text-success'>Productos</h1>
+       
   </div>
 
-       <div className="d-flex flex-wrap justify-content-center" style={{ backgroundImage:`url(${backgroundImage})`, backgroundSize: "cover", }}>
+       <div className="d-flex flex-wrap justify-content-center" style={{  backgroundSize: "cover", }}>
             {productList.map(product => (
               
               <div key={product.id} className="m-2">
@@ -68,7 +68,7 @@ const Store = () => {
           <div className="modal-content">
             <div className="modal-header">
             <div className="d-flex flex-wrap justify-content-center">
-                  <h3 className='text-success'>Carrito</h3>
+                  <h3 className='text-success'>Mi compra</h3>
                 </div>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -89,14 +89,14 @@ const Store = () => {
               <div className="modal-footer">
    
     {total === 0 ? (
-        <p>  Hora de Comprar!</p>
+        <p>Aún no agregaste productos a tu pedido</p>
     ) : (
         <div id="result">
             <hr/>
       <p>Total: {total} AR$</p>
       <hr/>
         
-              <button type="button" className="btn btn-warning">Comprar</button>
+              <a href='/Cart'><button type="button" className="btn btn-warning">Iniciar Pago</button></a>
         </div>
     )}
 </div>

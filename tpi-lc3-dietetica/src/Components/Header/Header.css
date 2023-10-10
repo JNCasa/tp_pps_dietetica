@@ -20,7 +20,7 @@ nav.navbar.navbar-expand-lg.nabvar-light {
 .logo {
     height: 100px;
     width: 250px;
-    margin-right: 50px;
+    margin-left: 50px;
 }
 
 
@@ -79,4 +79,8 @@ a.linkBarMenu {
 .menu-bar a.linkBarMenu:hover {
     background-color: rgb(182, 186, 183);
     color: black;
+}
+
+.opt-right-container {
+    gap: 15px;
 }

@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css';
 import logo from '../../assets/logos/logo.png';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
 import firebaseApp from '../../Firebase/firebase.config';
@@ -15,6 +15,9 @@ import { faMoon , faSun } from '@fortawesome/free-solid-svg-icons';
 import { useThemeContext } from '../../Context/ThemeContext';
 import { useContext} from 'react';
 import UserContext from '../../Context/UserContext';
+import { InputGroup } from 'react-bootstrap';
+import { BsSearch } from "react-icons/bs";
+import { useLocation } from 'react-router-dom';
 
 
 const auth = getAuth(firebaseApp)
@@ -24,7 +27,11 @@ const handleClick = () => {
 
 function Header() {
 
-    
+    const location = useLocation();
+    const showComponent = () => {
+      return location.pathname !== '/Cart';
+    };
+
     const {toggleTheme, theme} = useThemeContext();
 
     const { user } = useContext(UserContext);
@@ -37,6 +44,8 @@ function Header() {
       };
 
   return (
+    <>
+      {showComponent() && (
     <header>
         <Navbar bg="" expand="lg">
         <Container fluid>
@@ -44,14 +53,44 @@ function Header() {
                 <img src={logo} alt='Logo de la empresa' className='logo'/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
-            <Navbar.Collapse id="navbarScroll">
+            <Navbar.Collapse className='justify-content-between' id="navbarScroll">
             <Nav
-                className="me-auto my-2 my-lg-0"
+                className="ms-2 my-2 my-lg-0"
                 style={{ maxHeight: '100px' }}
                 navbarScroll
             >
-                <Nav.Link as={Link} to="/Store" onClick={handleClick}>Tienda</Nav.Link>
-                <NavDropdown title="Mi cuenta" id="navbarScrollingDropdown">
+                {
+                    user !== null && user.rol === 'owner' && (
+                        <>
+                            <Nav.Link as={Link} to="/ListProducts" onClick={handleClick}>Owner</Nav.Link>
+                        </>
+                    ) 
+                }
+            </Nav>
+
+            {/* Search Form */}
+            <Form className="d-flex search-form">
+                <InputGroup>
+                <InputGroup.Text>
+                    <BsSearch/>
+                </InputGroup.Text>
+                <Form.Control
+                    
+                    type="search"
+                    placeholder="Buscar"
+                    className="me-2"
+                    aria-label="Search"
+                    />
+                </InputGroup>
+                
+                {/* <Button variant="outline-success" className='button-buscar'>Buscar</Button> */}
+            </Form>
+
+
+
+            <div className='opt-right-container d-flex flex-row align-items-center'>
+            {/* Mi cuenta */}
+            <NavDropdown title="Mi cuenta" id="navbarScrollingDropdown">
                 {
                     user === null ? (
                         <>
@@ -67,39 +106,17 @@ function Header() {
                     )
                 }
                 </NavDropdown>
-                <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
-                <NavDropdown.Item as={Link} to="/AboutUs" onClick={handleClick}>Quiénes somos</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/FrequentQuestions" onClick={handleClick}>
-                Preguntas frecuentes
-                </NavDropdown.Item>
-                </NavDropdown>
                 {/* modal*/}
-               
+                {/* Chart */}
                 <Nav.Link  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     <FaShoppingCart /> Carrito
                 </Nav.Link>
-        
-
-
-                {
-                    user !== null && user.rol === 'owner' && (
-                        <>
-                            <Nav.Link as={Link} to="/ListProducts" onClick={handleClick}>Owner</Nav.Link>
-                        </>
-                    ) 
-                }
-            </Nav>
-            <Form className="d-flex">
-                <Form.Control
-                type="search"
-                placeholder="Buscar"
-                className="me-2"
-                aria-label="Search"
-                />
-                <Button variant="outline-success" className='button-buscar'>Buscar</Button>
-            </Form>
+            
+            {/* Theme button */}
             <Button onClick={toggleTheme} className='icon-moon-sun' style={{ backgroundColor: theme.backgroundFooter}}>  <FontAwesomeIcon icon={theme.icon === 'faSun' ? faSun : faMoon} /> </Button>
+            </div>
+
+            
             </Navbar.Collapse>
         </Container>
         </Navbar>
@@ -112,7 +129,20 @@ function Header() {
                 <a className='linkBarMenu azucar' href=''>AZÚCAR</a>
         </div>
     </header>
+    )}
+    </>
   );
 }
 
 export default Header;
+
+
+{/* <Nav.Link as={Link} to="/Store" onClick={handleClick}>Tienda</Nav.Link> */}
+
+{/* <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
+<NavDropdown.Item as={Link} to="/AboutUs" onClick={handleClick}>Quiénes somos</NavDropdown.Item>
+<NavDropdown.Divider />
+<NavDropdown.Item as={Link} to="/FrequentQuestions" onClick={handleClick}>
+Preguntas frecuentes
+</NavDropdown.Item>
+</NavDropdown> */}
