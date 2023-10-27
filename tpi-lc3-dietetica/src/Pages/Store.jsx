@@ -14,13 +14,27 @@ const Store = () => {
   const [productList, setProductList] = useState([]);
   const [quantities, setQuantities] = useState({});
 
-  useEffect(() => {
+  /*
+    useEffect(() => {
      setProductList(getProducts());
    }, []);
+  */
+   useEffect(() => {
+      async function fetchData() {
+        const response = await fetch('https://localhost:7184/api/Products');
+        const jsonData = await response.json();
+        console.log(jsonData);
+        setProductList(jsonData);
+      }
+      fetchData();
+    });
+    
+
+
 
    const handleQuantityChange = (id, quantity) => {
      setQuantities(prevQuantities => ({ ...prevQuantities, [id]: quantity }));
- }
+   }
 
    let total = 0;
    productList.forEach(product => {
@@ -47,7 +61,7 @@ const Store = () => {
             {productList.map(product => (
               
               <div key={product.id} className="m-2">
-               <Card id={product.id} title={product.title} description={product.description} weight={product.weight} price={product.price} image={product.image} onQuantityChange={handleQuantityChange} />
+               <Card id={product.id} title={product.title} description={product.description} weight={product.weight} price={product.price} imageUrl={product.imageUrl} onQuantityChange={handleQuantityChange} />
              
              </div>
            

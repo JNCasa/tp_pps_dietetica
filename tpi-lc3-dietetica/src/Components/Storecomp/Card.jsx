@@ -10,7 +10,7 @@ const Card = (props) => {
   return (
     <div className="card" style={{ width: "18rem", backgroundColor: theme.backgroundFooter, color: theme.textColor }}>
       <div style={{ overflow: "hidden" }}>
-        <img className='card-img-top' src={(`../../../src/assets/images/${props.image}`)} alt={props.title} />
+        <img className='card-img-top' src={(`https://localhost:7184/media/${props.imageUrl}`)} alt={props.title} />
       </div>
       <div className="card-body">
         <h5 className="card-title">{props.title}</h5>
