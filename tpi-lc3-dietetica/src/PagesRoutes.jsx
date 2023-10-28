@@ -10,7 +10,7 @@ import { useThemeContext } from './Context/ThemeContext';
 import WhatsappComp from './Components/WhatsappComp/WhatsappComp';
 
 
-const Pages = () => {
+const PagesRoutes = () => {
   
   const {theme} = useThemeContext();
   
@@ -31,4 +31,4 @@ const Pages = () => {
   )
 }
 
-export default Pages;
+export default PagesRoutes;

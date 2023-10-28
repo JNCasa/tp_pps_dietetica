@@ -36,7 +36,7 @@ function Header() {
 
     const { user } = useContext(UserContext);
 
-    const navigate = useNavigate();
+    var navigate = useNavigate();
 
     const handleEndSession = () => {
         signOut(auth);
