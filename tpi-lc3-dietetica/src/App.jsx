@@ -3,7 +3,7 @@ import './App.css'
 import Header from './Components/Header/Header';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from './Components/Footer/Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import UserContext from './Context/UserContext';
 import { ThemeContextProvider } from './Context/ThemeContext';
 import PagesRoutes from './PagesRoutes';

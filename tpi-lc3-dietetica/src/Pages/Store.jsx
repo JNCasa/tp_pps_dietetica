@@ -27,7 +27,7 @@ const Store = () => {
         setProductList(jsonData);
       }
       fetchData();
-    });
+    },[]);
     
 
 
