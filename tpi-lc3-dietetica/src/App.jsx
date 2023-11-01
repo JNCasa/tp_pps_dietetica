@@ -7,24 +7,21 @@ import { useState } from 'react';
 import UserContext from './Context/UserContext';
 import { ThemeContextProvider } from './Context/ThemeContext';
 import PagesRoutes from './PagesRoutes';
+import UseApiBackend from './Hooks/useApiBackend';
 
 
 function App() {
 
   const [user, setUser] = useState(null);
-
+  const { data, error, loading, fetchData } = UseApiBackend();
 
   useEffect(() => {
     
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch('https://localhost:7184/api/Users', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            // se pueden agregar tokens de autorización...
-          },
-        });
+        const fetchUserData = async () => {
+          try {
+            await fetchData('https://localhost:7184/api/Users', 'GET', {
+              'Content-Type': 'application/json',
+            }, null);
 
         if (response.ok) {
           const userData = await response.json();
@@ -37,10 +34,10 @@ function App() {
         setUser(null);
       }
     };
-
+  
     fetchUserData();
-  }, []);
 
+    }, []);
 
 
   return (

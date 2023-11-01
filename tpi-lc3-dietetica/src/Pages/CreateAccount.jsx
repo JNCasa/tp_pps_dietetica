@@ -2,13 +2,15 @@ import './PagesCSS/Form.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from '../Context/ThemeContext';
-
+import UseApiBackend from '../Hooks/useApiBackend';
 
 const initialForm = { name: "", lastName: "", phone:"", email: "", password: "", confirmPassword: ""}
 
 const CreateAccount = () => {
 
   const navigate = useNavigate();
+
+  const { data, error, loading, fetchData } = UseApiBackend();
 
   const validationsForm = (form) => {
     let errors = {};
@@ -55,13 +57,9 @@ const CreateAccount = () => {
   async function registerUser( data ){
     try {
 
-      const response = await fetch('https://localhost:7184/api/Users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      await fetchData('https://localhost:7184/api/Users', 'POST', {
+        'Content-Type': 'application/json',
+      }, JSON.stringify(data));
 
       if (response.ok) {
         setSuccess(true);
@@ -73,7 +71,7 @@ const CreateAccount = () => {
         // Errores  
       }
 
-    }catch (err){
+    }catch (error){
       
     }
   }
@@ -107,6 +105,7 @@ const CreateAccount = () => {
   
   return (
     <div className="form-container" style={{ backgroundColor: theme.backgroundContainer, color: theme.textColor }}>
+      {loading && <div>Cargando...</div>}
       <h2>Crear cuenta</h2>
         <form onSubmit={submitHandler}>
             <div className= "form-elements">
