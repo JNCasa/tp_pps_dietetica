@@ -1,13 +1,13 @@
 import './PagesCSS/Form.css';
 import { useState } from 'react';
-import firebaseApp from '../Firebase/firebase.config';
-import { getAuth, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore'
+// import firebaseApp from '../Firebase/firebase.config';
+// import { getAuth, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+// import { getFirestore, doc, setDoc } from 'firebase/firestore'
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from '../Context/ThemeContext';
 
 
-const auth = getAuth(firebaseApp);
+// const auth = getAuth(firebaseApp);
 
 const initialForm = { name: "", lastName: "", phone:"", email: "", password: "", confirmPassword: ""}
 
@@ -59,28 +59,49 @@ const CreateAccount = () => {
   
   async function registerUser( data ){
     try {
-      const infoUser = await createUserWithEmailAndPassword(auth, data.email, data.password);
-      const firestore = getFirestore(firebaseApp);
-    
-      const docuRef = doc(firestore, `users/${infoUser.user.uid}`);
-      setDoc(docuRef, {
-        name: data.name,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        password: data.password,
-        rol: data.rol
-      })
-      // signOut( auth );
-      setSuccess(true);
-      setErr("");
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-    }catch (err){
-      if(err.code === "auth/email-already-in-use"){
-        setErr("El email ingresado ya está registrado. Por favor ingresa uno nuevo.")
+
+      const response = await fetch('https://localhost:7184/api/Users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSuccess(true);
+        setErr("");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        // Errores de la solicitud HTTP 
       }
+
+
+
+      // const infoUser = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      // const firestore = getFirestore(firebaseApp);
+    
+      // const docuRef = doc(firestore, `users/${infoUser.user.uid}`);
+      // setDoc(docuRef, {
+      //   name: data.name,
+      //   lastName: data.lastName,
+      //   email: data.email,
+      //   phone: data.phone,
+      //   password: data.password,
+      //   rol: data.rol
+      // })
+      // // signOut( auth );
+      // setSuccess(true);
+      // setErr("");
+      // setTimeout(() => {
+      //   navigate("/");
+      // }, 2000);
+    }catch (err){
+      // if(err.code === "auth/email-already-in-use"){
+      //   setErr("El email ingresado ya está registrado. Por favor ingresa uno nuevo.")
+      // }
     }
   }
 

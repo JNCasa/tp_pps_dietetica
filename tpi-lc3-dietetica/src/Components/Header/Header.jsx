@@ -8,8 +8,8 @@ import './Header.css';
 import logo from '../../assets/logos/logo.png';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, signOut } from 'firebase/auth';
-import firebaseApp from '../../Firebase/firebase.config';
+// import { getAuth, signOut } from 'firebase/auth';
+// import firebaseApp from '../../Firebase/firebase.config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon , faSun } from '@fortawesome/free-solid-svg-icons';
 import { useThemeContext } from '../../Context/ThemeContext';
@@ -20,7 +20,7 @@ import { BsSearch } from "react-icons/bs";
 import { useLocation } from 'react-router-dom';
 
 
-const auth = getAuth(firebaseApp)
+// const auth = getAuth(firebaseApp)
 
 const handleClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })};
@@ -35,13 +35,34 @@ function Header() {
     const {toggleTheme, theme} = useThemeContext();
 
     const { user } = useContext(UserContext);
+    
 
     var navigate = useNavigate();
 
-    const handleEndSession = () => {
-        signOut(auth);
-        navigate="/";
-      };
+    // const handleEndSession = () => {
+    //     signOut(auth);
+    //     navigate="/";
+    //   };
+
+
+    const handleEndSession = async () => {
+        try {
+            const response = await fetch('https://localhost:7184/api/Users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    //token
+                },
+            });
+
+            if (response.ok) {
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+        }
+    };
+
 
   return (
     <>
@@ -60,9 +81,9 @@ function Header() {
                 navbarScroll
             >
                 {
-                    user !== null && user.rol === 'owner' && (
+                    user !== null && user.rol === 'admin' && (
                         <>
-                            <Nav.Link as={Link} to="/ListProducts" onClick={handleClick}>Owner</Nav.Link>
+                            <Nav.Link as={Link} to="/ListProducts" onClick={handleClick}>Administrador</Nav.Link>
                         </>
                     ) 
                 }
@@ -83,7 +104,7 @@ function Header() {
                     />
                 </InputGroup>
                 
-                {/* <Button variant="outline-success" className='button-buscar'>Buscar</Button> */}
+                
             </Form>
 
 
@@ -137,12 +158,3 @@ function Header() {
 export default Header;
 
 
-{/* <Nav.Link as={Link} to="/Store" onClick={handleClick}>Tienda</Nav.Link> */}
-
-{/* <NavDropdown title="Nosotros" id="navbarScrollingDropdown">
-<NavDropdown.Item as={Link} to="/AboutUs" onClick={handleClick}>Quiénes somos</NavDropdown.Item>
-<NavDropdown.Divider />
-<NavDropdown.Item as={Link} to="/FrequentQuestions" onClick={handleClick}>
-Preguntas frecuentes
-</NavDropdown.Item>
-</NavDropdown> */}
