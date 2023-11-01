@@ -8,8 +8,6 @@ import './Header.css';
 import logo from '../../assets/logos/logo.png';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-// import { getAuth, signOut } from 'firebase/auth';
-// import firebaseApp from '../../Firebase/firebase.config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon , faSun } from '@fortawesome/free-solid-svg-icons';
 import { useThemeContext } from '../../Context/ThemeContext';
@@ -20,7 +18,6 @@ import { BsSearch } from "react-icons/bs";
 import { useLocation } from 'react-router-dom';
 
 
-// const auth = getAuth(firebaseApp)
 
 const handleClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })};
@@ -38,11 +35,6 @@ function Header() {
     
 
     var navigate = useNavigate();
-
-    // const handleEndSession = () => {
-    //     signOut(auth);
-    //     navigate="/";
-    //   };
 
 
     const handleEndSession = async () => {
