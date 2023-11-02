@@ -1,17 +1,18 @@
 import './PagesCSS/Form.css';
 import { useForm } from '../Hooks/useForm';
-import firebaseApp from '../Firebase/firebase.config';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from '../Context/ThemeContext';
-import { useState } from 'react';
+import UseApiBackend from '../Hooks/useApiBackend';
 
-const auth = getAuth(firebaseApp);
 
 const initialForm = { email: "", password: ""}
 
 const LogIn = () => {
+  
   const navigate = useNavigate();
+  const { data, error, loading, fetchData } = UseApiBackend();
+  const {form, errors, handleChange} = useForm(initialForm, validationsForm);
+  const {theme} = useThemeContext();
 
   const validationsForm = (form) => {
     let errors = {};
@@ -28,30 +29,28 @@ const LogIn = () => {
       }
     return errors;
   }
-
-  const{form, errors, handleChange} = useForm(initialForm, validationsForm);
   
-  const [err , setErr] = useState();
 
   async function submitHandler(e){
     e.preventDefault()
-    try{
-      const login = await signInWithEmailAndPassword(auth,form.email, form.password);
-      if(login){
+    const data = {
+      email: form.email,
+      password: form.password
+    };
+    await fetchData('https://localhost:7184/api/Users', 'POST', {
+      'Content-Type': 'application/json',
+    }, JSON.stringify(data));
+    if (!error) {
+      setTimeout(() => {
         navigate("/");
-      }
-    } catch (err){
-      if(err.code === 'auth/user-not-found'){
-          setErr('Usted no se encuntra registrado. Debe crearse una cuenta.')
-      }
-      if(err.code === 'auth/wrong-password'){
-        setErr('La contraseña ingresada es incorrecta. Vuelve a ingresrla.')
+      }, 2000);
+    } else {
+      // errores de registro o de contraseña incorrecta
+      //'Usted no se encuntra registrado. Debe crearse una cuenta.'
+      //'La contraseña ingresada es incorrecta. Vuelve a ingresrla.'
     }
-    }
-    
-  }
+  };
 
-  const {theme} = useThemeContext();
     return (
     <>
       <div className="form-container" style={{ backgroundColor: theme.backgroundContainer, color: theme.textColor }}>
@@ -66,7 +65,8 @@ const LogIn = () => {
             {errors.password && <p className="error-message">{errors.password}</p>}
           </div>
           <button type="submit" >Iniciar sesión</button>
-          {err && <p className='error-message'>{err}</p>}
+          {error && <p className='error-message'>{error}</p>}
+          {loading && <div>Iniciando sesión</div>}
           <p>¿No tenes cuenta aún? <a href='/CreateAccount' className='link-form'>Crear cuenta</a></p>
         </form>
       </div>
