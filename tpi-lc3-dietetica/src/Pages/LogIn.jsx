@@ -1,78 +1,88 @@
 import './PagesCSS/Form.css';
+import { jwtDecode } from 'jwt-decode';
 import { useForm } from '../Hooks/useForm';
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from '../Context/ThemeContext';
 import UseApiBackend from '../Hooks/useApiBackend';
+//context lucas
+import { useContext } from "react";
+import UserContext from "../Context/UserContext";
+//
 
 
-const initialForm = { email: "", password: ""}
+import React, { useState } from 'react';
+//practica con lucas
+function LoginComponent() {
+  //context lucas
+  const { user, setUser } = useContext(UserContext);
+  //
 
-const LogIn = () => {
-  
-  const navigate = useNavigate();
-  const { data, error, loading, fetchData } = UseApiBackend();
-  const {form, errors, handleChange} = useForm(initialForm, validationsForm);
-  const {theme} = useThemeContext();
 
-  const validationsForm = (form) => {
-    let errors = {};
-    let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-      if (!form.email.trim()){
-        errors.email = 'Debe ingresar su email'
-      }else if(!regexEmail.test(form.email.trim())){
-        errors.email = "El email es incorrecto"
-      }
-
-      if (!form.password.trim()){
-        errors.password = 'Contraseña inválida'
-      }
-    return errors;
-  }
-  
-
-  async function submitHandler(e){
-    e.preventDefault()
-    const data = {
-      email: form.email,
-      password: form.password
-    };
-    await fetchData('https://localhost:7184/api/Users', 'POST', {
-      'Content-Type': 'application/json',
-    }, JSON.stringify(data));
-    if (!error) {
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-    } else {
-      // errores de registro o de contraseña incorrecta
-      //'Usted no se encuntra registrado. Debe crearse una cuenta.'
-      //'La contraseña ingresada es incorrecta. Vuelve a ingresrla.'
-    }
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
   };
 
-    return (
-    <>
-      <div className="form-container" style={{ backgroundColor: theme.backgroundContainer, color: theme.textColor }}>
-        <h2>Iniciá sesión</h2>
-        <form onSubmit={submitHandler}>
-          <div className="form-elements">
-            <label id="email">Email</label>
-            <input type= "email" name= "email" value={form.email} onChange={handleChange} required></input>
-            {errors.email && <p className="error-message">{errors.email}</p>}
-            <label id="password">Contraseña</label>
-            <input type= "password" name= "password" value={form.password} onChange={handleChange} required/>
-            {errors.password && <p className="error-message">{errors.password}</p>}
-          </div>
-          <button type="submit" >Iniciar sesión</button>
-          {error && <p className='error-message'>{error}</p>}
-          {loading && <div>Iniciando sesión</div>}
-          <p>¿No tenes cuenta aún? <a href='/CreateAccount' className='link-form'>Crear cuenta</a></p>
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const url = 'https://localhost:7184/api/Auth';
+    const data = {
+      userName: username, password: password
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(data => {
+        const jwt = jwtDecode(data.jwt);
+        //YA TENEMOS LOS DATOS DEL USUARIO
+        setUser({ name: jwt.unique_name, rol: jwt.role })
+        console.log(data); // Maneja la respuesta de la 
+
+
+
+        localStorage.setItem('jwt', JSON.stringify(data.jwt));//Almacena en el local str
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        localStorage.removeItem('jwt');
+      });
+  };
+
+
+  return (
+
+    <div className="form-container" >
+      <h2>Iniciá sesión</h2>
+      <div className="form-elements">
+        <form >
+          <label>
+            Usuario:
+            <input type="text" value={username} onChange={handleUsernameChange} />
+          </label>
+          <label>
+            Contraseña:
+            <input type="password" value={password} onChange={handlePasswordChange} />
+          </label>
+
+          <button
+            onClick={handleSubmit} type="submit">Ingresar</button>
         </form>
       </div>
-      
-    </>
-  )
+    </div>
+  );
 }
 
-export default LogIn
+export default LoginComponent;
